@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<request>
+  <deliveryOrder>
+    <deliveryOrderCode>A202003249245</deliveryOrderCode>
+    <deliveryOrderId>A202003249245</deliveryOrderId>
+    <warehouseCode>shenyi_xdb</warehouseCode>
+    <outBizCode>A2020030529647</outBizCode>
+    <orderType>PTCK</orderType>
+    <status>DELIVERED</status>
+    <orderConfirmTime>2020-03-05 17:47:00</orderConfirmTime>
+  </deliveryOrder>
+  <orderLines>
+
+    <orderLine>
+      <itemCode>FBAV052</itemCode>
+      <inventoryType>ZP</inventoryType>
+      <actualQty>20</actualQty>
+      <batchs></batchs>
+    </orderLine>
+
+  </orderLines>
+</request>
