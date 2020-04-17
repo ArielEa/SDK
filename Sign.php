@@ -11,7 +11,7 @@
  */
 class Sign
 {
-	private $setUrl = "https://zhao.b2c.omnixdb.com/router/service";
+	private $setUrl = "https://xxxx/router/service";
 
 	private $param = [];
 
