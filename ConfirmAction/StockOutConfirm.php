@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__."/../Message.php";
+include_once "Confirm.php";
 
 /**
  * - 【 出库单，大批量货品出库直走接口 】
@@ -9,7 +10,7 @@ include_once __DIR__."/../Message.php";
  */
 class StockOutConfirm extends Message
 {
-	public function Stock_out_confirm( $postType = 'json' ) : string
+	public function confirm( $postType = 'json' ) : string
 	{
 		$_params = $this->getData();
         

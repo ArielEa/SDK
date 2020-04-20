@@ -1,7 +1,9 @@
 <?php
+include_once "configuration.php";  ## 配置文件
 
 /**
  * 传递数据说明
+ * @author Ariel.
  * @param  $param = [
 			'appKey' => '12344',
 			'method' => 'Entry.Order',
@@ -11,7 +13,7 @@
  */
 class Sign
 {
-	private $setUrl = "https://xxxx/router/service";
+    use Configuration;
 
 	private $param = [];
 
@@ -39,7 +41,7 @@ class Sign
      * @param $body
      * @return string
      */
-    public function signXml( $secret, $param, $body ) 
+    public function signXml( $secret, $param, $body ) :string
     {
         if ( empty($body) ) {
             exit('Body can\'t empty!');
@@ -71,7 +73,7 @@ class Sign
      * @param $body
      * @return string
      */
-    public function signJson( $secret, $param, $body ) 
+    public function signJson( $secret, $param, $body ) :string
     {
         if ( empty($body) ) 
         	exit('Body can\'t empty!');
@@ -102,14 +104,14 @@ class Sign
      * - 【 获取签名数据，并且返回 】 
      * @param null $method
      * @param null $body
-     * @return array|mixed
+     * @return string
      */
-    public function getSignData($method = null, $body = null)
+    public function getSignData($method = null, $body = null) : string
     {
+        $prefixUrl = $this->remoteUrl.$this->route;
         $this->param['method']    = $method;
         $this->param['timestamp'] = date("Y-m-d H:i:s");
         $this->param['sign']      = $this->signJson($this->secret, $this->param , $body);  
-        $url    = $this->setUrl . "?" . http_build_query($this->param);
-        return $url;
+        return  $prefixUrl . "?" . http_build_query($this->param);
     }
 }

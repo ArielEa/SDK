@@ -1,14 +1,15 @@
 <?php
 
 include_once __DIR__."/../Message.php";
+include_once "Confirm.php";
 
 /**
  * 接口 method : entry.order
  * Demo Entry 入库单部分（PO单）
  */
-class EntryConfirm extends Message
+class EntryConfirm extends Message implements Confirm
 {
-    public function entry_confirm( $postType = 'json' ): string
+    public function confirm( $postType = 'json' ): string
 	{   
         $_params = $this->getData();
         
