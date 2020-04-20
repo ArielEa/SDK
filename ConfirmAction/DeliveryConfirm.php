@@ -1,24 +1,29 @@
 <?php
 
 include_once __DIR__."/../Message.php";
+include_once "Confirm.php";
 
 /**
  * - 【 特别注意，发货不会发出残品，默认正品发货 】
- * 接口 method : Delivry.order
+ * 接口 method : Delivery.order
  * Demo DeliveryConfirm 销售出库/发货单
  */
 class DeliveryConfirm extends Message
 {
-	public function delivery_confirm( $postType = 'json' ) : string
+    /**
+     * @param string $postType
+     * @return string
+     */
+	public function confirm( $postType = 'json' ) : string
 	{
         $_params = $this->getData();
         
-        $postData = $this->convertJson( $_params );
-
-		return $postData;
+        return $this->convertJson( $_params );
 	}
 
-
+    /**
+     * @return array
+     */
 	public function getData() : array
 	{
 		$postData = [

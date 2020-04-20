@@ -37,12 +37,10 @@ class Client
         return $result;
     }
 
-	/**
-	 * - 【 发送请求 】
-	 * @param $postData - 数据
-	 * @param $method 
-	 * @param $postType - [  xml, json ]
-	 */
+    /**
+     * - [ 发送请求 ]
+     * @return string
+     */
 	public function curl() : string
 	{
 		$ch = curl_init();
@@ -51,7 +49,6 @@ class Client
 
         // postType => json/xml
         $header[] = "Content-type: application/{$postType}";
-
 
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_URL, $this->postUrl);
