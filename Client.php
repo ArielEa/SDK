@@ -15,7 +15,7 @@ class Client
      * @param $postUrl
      * @param $method
      * @param $postType
-     * @return array
+     * @return string
      */
     public function request( $postData, $postUrl, $method, $postType )
     {
