@@ -8,7 +8,7 @@ include_once "Confirm.php";
  * 接口 method : Stock.out.order
  * Demo DeliveryConfirm 销售出库/发货单
  */
-class StockOutConfirm extends Message
+class StockOutConfirm extends Message implements Confirm
 {
 	public function confirm( $postType = 'json' ) : string
 	{
