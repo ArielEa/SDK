@@ -8,7 +8,7 @@ include_once "Confirm.php";
  * 接口 method : Delivery.order
  * Demo DeliveryConfirm 销售出库/发货单
  */
-class DeliveryConfirm extends Message
+class DeliveryConfirm extends Message implements Confirm
 {
     /**
      * @param string $postType

@@ -26,6 +26,9 @@ class Client
 
         $result = $this->curl();
 
+        print_r( $result );
+
+        die;
         // if ( $postType == 'json' ){
         //     return $this->JsonParson( $result );
         // }else if ( $postType == 'xml' ){

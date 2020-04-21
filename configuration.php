@@ -8,9 +8,9 @@
  */
 Trait Configuration
 {
-	protected $remoteUrl = "xxx";
+	protected $remoteUrl = "https://xxxx.com"; // 请自行设置
 
-	protected $route = "/router/service";
+	protected $route = "/router/service"; // 请自行设置
 
 	protected $parameters = [
         'app_key' => '', // app_id
@@ -26,20 +26,20 @@ Trait Configuration
      * @var array
      */
 	protected $MethodCreate = [
-        'Entry.Create'     => 'EntryCreate',
-        'Delivery.Create'  => 'DeliveryCreate',
-        'Stock.out.Create' => 'StockOutCreate',
-        'Refund.Create'    => 'RefundCreate'
+        'Entry.create'     => 'EntryCreate',
+        'Delivery.create'  => 'DeliveryCreate',
+        'Stock.out.create' => 'StockOutCreate',
+        'Refund.create'    => 'RefundCreate'
     ];
 
     /**
-     * - [ 回传 method 匹配 ]
+     * - [ 回传确认 method 匹配 ]
      * @var array
      */
 	protected $MethodConfirm = [
-	    'Entry.Order'     => 'EntryConfirm',
-        'Delivery.Order'  => 'DeliveryConfirm',
-        'Stock.out.Order' => 'StockOutConfirm',
-        'Refund.Order'    => 'RefundConfirm'
+	    'Entry.order'     => 'EntryConfirm',
+        'Delivery.order'  => 'DeliveryConfirm',
+        'Stock.out.order' => 'StockOutConfirm',
+        'Refund.order'    => 'RefundConfirm'
     ];
 }

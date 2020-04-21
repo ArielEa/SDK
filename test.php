@@ -3,6 +3,7 @@
 include_once "ConfirmAction/EntryConfirm.php";
 include_once "ConfirmAction/DeliveryConfirm.php";
 include_once "ConfirmAction/StockOutConfirm.php";
+include_once "ConfirmAction/RefundConfirm.php";
 include_once "Sign.php";
 include_once "Client.php";
 include_once "configuration.php"; ## 配置文件
@@ -54,7 +55,7 @@ class test extends Client
 
 		$signService = new Sign( $this->param );
 
-		$signUrl = $signService->getSignData( $this->matchMethod(), $postData );
+		$signUrl = $signService->getSignData( $this->param['method'], $postData );
 
 		return $this->request( $postData, $signUrl, 'post', 'json' );
 	}
@@ -83,7 +84,7 @@ class test extends Client
             $matchMethodName = $this->MethodConfirm;
 
             if ( !isset( $matchMethodName[$method] ) )
-                exit( "为匹配到对应的回传接口，错误接口: {$method}" );
+                exit( "未匹配到对应的回传接口，错误接口: {$method}" );
 
             $methodName = $matchMethodName[$method];
         }
@@ -126,4 +127,7 @@ $result = new test( $appKey, $secret, $method, $status );
 
 $getData = $result->confirm();
 
-print_r( $getData );
+if ( is_array( $getData ) )
+    print_r( $getData );
+else
+    print_r( json_encode( $getData ) );
