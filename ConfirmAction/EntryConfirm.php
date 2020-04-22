@@ -17,6 +17,10 @@ class EntryConfirm extends Message implements Confirm
         return $this->convertJson( $_params );
 	}
 
+    /**
+     * - [ 组合数据 ]
+     * @return array
+     */
 	public function getData() : array
 	{
 	    $entry = new Entry;
@@ -46,7 +50,6 @@ class EntryConfirm extends Message implements Confirm
         $items->setActualQty( 500 );
         $items->setInventoryType( 'ZP' );
         $entry->setItems( $items );
-
 		return json_decode( json_encode( $entry ), true );
 	}
 }

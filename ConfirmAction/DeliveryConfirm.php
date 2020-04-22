@@ -2,6 +2,7 @@
 
 include_once __DIR__."/../Message.php";
 include_once "Confirm.php";
+include_once __DIR__."/../ApiParameters/DeliveryParameters.php";
 
 /**
  * - 【 特别注意，发货不会发出残品，默认正品发货 】
@@ -16,9 +17,12 @@ class DeliveryConfirm extends Message implements Confirm
      */
 	public function confirm( $postType = 'json' ) : string
 	{
-        $_params = $this->getData();
-        
-        return $this->convertJson( $_params );
+
+	    if ( $postType == 'json' ) {
+            $_params = $this->getData();
+
+            return $this->convertJson( $_params );
+        }
 	}
 
     /**
@@ -26,60 +30,45 @@ class DeliveryConfirm extends Message implements Confirm
      */
 	public function getData() : array
 	{
-		$postData = [
-			'deliveryOrder' => [
-				'deliveryOrderCode' => 'D2020001',  // 销售单号(必)
-				'deliveryOrderId'	=> 1000,	// 销售编号(选)
-				'warehouseCode'	 	=> 'test_warehouse', // 出库仓库编码(必)
-				'orderConfirmTime'  => '2020-03-27 00:00:00', // 回传时间(选)
-				'orderType'	 		=> 'JYCK',	// 固定，回传状态值（必填）
-				'outBizCode'	 	=> 1,  // 外部编码(选填)
-			],
-
-			'packages' => [
-				[
-					'logisticsCode' => 'SF', // 物流公司编码(必填)
-					'expressCode'	=> 'SF21633111', // 运单号(必填)
-					'weight'		=> '315.0000', // 重量(选填)
-					'extendProps'	=> [
-						// 自定义字段存储地址，需要双方系统协商
-						'attribute1' => '',
-						'attribute2' => '',
-					], 
-					'items'			=> [
-						[
-							'itemCode' => 'F001', // 商品编码
-							'quantity' => 1		 // 该商品的全部出库数量
-						],
-						[
-							'itemCode' => 'F002',
-							'quantity' => 1
-						],
-					]
-				],
-			],
-			'orderLines' => [
-				[
-					'itemId'	=> 1234,	// 系统商品id (必填)
-					'itemCode'	=> 'F001',  // 商品编码 ( 必填 )
-					'batchCode'	=> 'A-001', // 批次编码 (选填)
-					'productDate' => '2020-03-27 11:00:00', // 批次生产日期, (选填)
-					'expireDate'  => '2022-03-27 11:00:00', // 批次过期日期, (选填)
-					'actualQty'	  => 1, // 数量
-					'inventoryType' => 'ZP' // 正品 ZP, 残品 CC
-				],
-				[
-					'itemId'	=> 1234,	// 系统商品id
-					'itemCode'	=> 'F002',  // 商品编码
-					'batchCode'	=> 'A-001',
-					'productDate' => '2020-03-27 11:00:00',
-					'expireDate'  => '2022-03-27 11:00:00',
-					'actualQty'	  => 1,
-					'inventoryType' => 'ZP'
-				],
-			]
-		];
-		return $postData;
+	    $delivery = new Delivery;
+	    $delivery->setDeliveryOrderCode( 'D20200001' );
+	    $delivery->setDeliveryOrderId( 1000 );
+	    $delivery->setWarehouseCode('test_warehouse_code');
+	    $delivery->setOrderConfirmTime( '2020-04-22 12:00:00' );
+	    $delivery->setOrderType( 'JYCK' );
+	    $delivery->setOutBizCode( 1 );
+	    $package = new DeliveryPackage;
+	    $package->setLogisticsCode( 'SF' );
+	    $package->setExpressCode( 'SF2022110011' );
+	    $package->setWeight( '315.00' );
+	    $packageItem = new DeliveryPackageItems;
+	    $packageItem->setItemCode( 'F001' );
+	    $packageItem->setQuantity( 1 );
+	    $package->setItems( $packageItem );
+        $packageItem = new DeliveryPackageItems;
+        $packageItem->setItemCode( 'F002' );
+        $packageItem->setQuantity( 1 );
+        $package->setItems( $packageItem );
+        $delivery->setPackage( $package );
+        $items = new DeliveryItem;
+        $items->setItemId( 1234 );
+        $items->setItemCode( 'F001' );
+        $items->setBatchCode('' );
+        $items->setProductDate( '' );
+        $items->setExpireDate( '' );
+        $items->setActualQty( 1 );
+        $items->setInventoryType( 'ZP' );
+        $delivery->setOrderLines( $items );
+        $items = new DeliveryItem;
+        $items->setItemId( 1234 );
+        $items->setItemCode( 'F002' );
+        $items->setBatchCode('' );
+        $items->setProductDate( '' );
+        $items->setExpireDate( '' );
+        $items->setActualQty( 1 );
+        $items->setInventoryType( 'ZP' );
+        $delivery->setOrderLines( $items );
+		return json_decode( json_encode( $delivery ), true );
 	}
 
 }
